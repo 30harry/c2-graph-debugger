@@ -7,6 +7,8 @@ import * as projectTypes from '../reducers/projecttypes';
 /**
  * HSV to RGB color conversion
  *
+ * https://jsfiddle.net/aldass/9f0yadfy/
+ *
  * H runs from 0 to 360 degrees
  * S and V run from 0 to 100
  *
@@ -100,6 +102,8 @@ function randomColor () {
 
 /**
  * Generate distinct RGB colors
+ *
+ * https://jsfiddle.net/aldass/9f0yadfy/
  *
  * t is the total number of colors
  * you want to generate.
