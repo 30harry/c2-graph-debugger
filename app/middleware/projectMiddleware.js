@@ -215,6 +215,110 @@ function rgbToComplimentary(rgb){
   return [r, g, b];
 }
 
+// #217 CALLSTATICJAVA @(tuple:, bci: 5 36, line: 36) -> [ 218 (Proj) ]; # Static uncommon_trap(reason='null_check' action='maybe_recompile' debug_id='0')  void ( int ) C=0.000100 LoopReferencesNotEs
+//    L[ 216 (IfFalse) 137 (Phi) 212 (MergeMem) 8 (Parm) 9 (Parm) 165 (ConI) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 50 (ConP) ]
+const JitLogDataFormat = 'JitLogDataFormat';
+
+// 863	RangeCheck	===  853  862  [[ 864  867 ]] P=0.999999, C=-1.000000  Type:{0:control, 1:control} !jvms: java.lang.Integer::valueOf @ bci:21 LoopReferencesNotEscaping$Wrapper::<init> @ bci:11 LoopReferencesNotEscaping::doTest @ bci:6
+const NodeDumpDataFormat = 'NodeDumpDataFormat';
+
+function ConvertDataIfNeeded(source) {
+
+  let dataFormat = 'unknown';
+  let possibly = '';
+  source.every(line => {
+    const parts = line.trim().split(/[ \t]+/);
+     if (parts.length > 2) {
+      if ((possibly == JitLogDataFormat) &&
+          (parts[0] == 'L['))
+      {
+        dataFormat = JitLogDataFormat;
+      }
+      else if (parts[0].startsWith('#') &&
+               parts[2].startsWith('@(')) {
+        possibly = JitLogDataFormat;
+      }
+      else if (parts[2] == '===') {
+        dataFormat = NodeDumpDataFormat;
+      }
+      else {
+        possibly = '';
+      }
+    }
+    return dataFormat == 'unknown';
+  });
+
+  if (dataFormat == JitLogDataFormat) {
+
+    const newData = [];
+    let mainLineTypeAndInputNodes = '';
+    let mainLineOutputNodes= '';
+    let mainLineTypeStuff = '';
+    source.forEach(line => {
+      const parts = line.trim().split(/[ \t]+/);
+      if (mainLineTypeAndInputNodes == '') {
+
+        mainLineOutputNodes= '';
+        mainLineTypeStuff = '';
+
+        // expect output edges #id TYPE @(stuff) -> [ NNN (Type) .... ]; morestuff
+        if (parts[0].startsWith('#') && parts[2].startsWith('@(')) {
+          mainLineTypeAndInputNodes = `${parts[0].substring(1)} ${parts[1]} === `;
+          let next = 2;
+          while (next < parts.length && parts[next] !== '->') {
+            mainLineTypeStuff += ` ${parts[next]}`;
+            next += 1;
+          }
+          if (parts[next] !== '->') {
+            mainLineTypeAndInputNodes = '';
+            return;
+          }
+          next += 2; // skip -> and [
+          while (next < parts.length && parts[next] !== '];') {
+            mainLineOutputNodes += ` ${parts[next]}`;
+            if (parts[next + 1].startsWith('(')) {
+              next += 2; // skip the type
+            } else {
+              next += 1;
+            }
+          }
+          if (parts[next] !== '];') {
+            mainLineTypeAndInputNodes = '';
+            return;
+          }
+          next += 1; // skip ]
+          while (next < parts.length) {
+            mainLineTypeStuff += ` ${parts[next]}`;
+            next += 1;
+          }
+        }
+      }
+      else {
+
+        if (mainLineTypeAndInputNodes != '' && parts[0] == 'L['){
+
+          // expect input ediges L[ _ | NNN (Type) ... ]
+          let next = 1;
+
+          while (parts[next] !== ']') {
+            mainLineTypeAndInputNodes += ` ${parts[next]}`;
+            if (parts[next + 1].startsWith('(')) {
+              next += 2; // skip the type
+            } else {
+              next += 1;
+            }
+          }
+
+          newData.push(`${mainLineTypeAndInputNodes} [[ ${mainLineOutputNodes} ]] ${mainLineTypeStuff}`)
+        }
+        mainLineTypeAndInputNodes = '';
+      }
+    });
+    return newData;
+  }
+  return source;
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export const projectMiddleware = store => next => async action => {
   // call the next function
@@ -248,13 +352,12 @@ export const projectMiddleware = store => next => async action => {
 
   if (action.type === projectActions.PROCESS_PROJECT_DATA) {
     store.dispatch(projectActions.processProjectProcessing());
+
+    const rawLines = ConvertDataIfNeeded(action.rawlines);
     const nodes = [];
     let uniqueTypes = [];
-    action.rawlines.forEach(line => {
+    rawLines.forEach(line => {
       const parts = line.trim().split(/[ \t]+/);
-
-      // 42	> Proj	===  41  [[ 840  45 ]] #0  Type:control !jvms: LoopReferencesNotEscaping::doTest @ bci:0
-
       let next = 0;
       if (parts.length > 4 && !isNaN(parts[next])) {
 
@@ -268,6 +371,12 @@ export const projectMiddleware = store => next => async action => {
           next += 1;
         }
 
+        if (parts[next + 1] != '===') {
+          // skip the row
+          console.log('some bad data - skipping the line: ' + parts[next + 1]);
+          return;
+        }
+
         const type = parts[next];
         if (!uniqueTypes.includes(type)) {
           uniqueTypes.push(type);
@@ -277,10 +386,12 @@ export const projectMiddleware = store => next => async action => {
         next += 1; // skip ===
 
         const inEdges = [];
-        while (!parts[next].startsWith('[[') && !parts[next].startsWith('(')) {
+        while (next < parts.length && !parts[next].startsWith('[[') && !parts[next].startsWith('(')) {
           inEdges.push({ id: parts[next], type: 'unknown' });
           next += 1;
         }
+
+        if (next == parts.length) return;
 
         const specialInEdges = [];
         if (parts[next] === '()') {
@@ -288,19 +399,21 @@ export const projectMiddleware = store => next => async action => {
         }
         else if (parts[next].startsWith('(')) {
           next += 1; // skip ((
-          while (!parts[next].startsWith(')')) {
+          while (next < parts.length && !parts[next].startsWith(')')) {
             specialInEdges.push({ id: parts[next], type: 'unknown' });
             next += 1;
           }
           next += 1; // skip )
         }
 
+        if (next == parts.length) return;
+
         const outEdges = [];
         if (parts[next] === '[[]]') {
           next += 1; // skip [[]]
         } else {
           next += 1; // skip [[
-          while (!parts[next].startsWith(']]')) {
+          while (next < parts.length && !parts[next].startsWith(']]')) {
             outEdges.push({ id: parts[next], type: 'unknown' });
             next += 1;
           }

@@ -1,0 +1,9 @@
+137	StoreB	===  133  880  118  25  [[ 140 ]]  @rawptr:BotPTR, idx=Raw;  Memory: @rawptr:BotPTR, idx=Raw; !jvms: LoopReferencesNotEscaping$Wrapper::<init> @ bci:14 LoopReferencesNotEscaping::doTest @ bci:6
+ 123	Bool	=== _  122  [[ 124 ]] [le]  Type:bool !jvms: LoopReferencesNotEscaping$Wrapper::<init> @ bci:14 LoopReferencesNotEscaping::doTest @ bci:6
+ 124	If	===  830  123  [[ 125  126 ]] P=0.999000, C=-1.000000  Type:{0:control, 1:control} !jvms: LoopReferencesNotEscaping$Wrapper::<init> @ bci:14 LoopReferencesNotEscaping::doTest @ bci:6
+ 130	CmpI	=== _  129  25  [[ 131 ]]   Type:int:-1..1 !jvms: LoopReferencesNotEscaping$Wrapper::<init> @ bci:14 LoopReferencesNotEscaping::doTest @ bci:6
+ 140	Phi	===  139  137  880  [[ 143 ]]   Memory: @rawptr:BotPTR, idx=Raw; !jvms: LoopReferencesNotEscaping$Wrapper::<init> @ bci:14 LoopReferencesNotEscaping::doTest @ bci:6
+ 131	Bool	=== _  130  [[ 132 ]] [ne]  Type:bool !jvms: LoopReferencesNotEscaping$Wrapper::<init> @ bci:14 LoopReferencesNotEscaping::doTest @ bci:6
+ 143	Phi	===  142  140  880  [[ 53 ]]   Memory: @rawptr:BotPTR, idx=Raw; !orig=[145],[52] !jvms: LoopReferencesNotEscaping$Wrapper::<init> @ bci:14 LoopReferencesNotEscaping::doTest @ bci:6
+ 125	IfTrue	===  124  [[ 132  129 ]] #1  Type:control !jvms: LoopReferencesNotEscaping$Wrapper::<init> @ bci:14 LoopReferencesNotEscaping::doTest @ bci:6
+ 126	IfFalse	===  124  [[ 142 ]] #0  Type:control !jvms: LoopReferencesNotEscaping$Wrapper::<init> @ bci:14 LoopReferencesNotEscaping::doTest @ bci:6

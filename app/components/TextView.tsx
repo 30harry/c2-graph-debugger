@@ -7,6 +7,7 @@ type Props = {
   loadProject: (filename: string) => void;
   loadProjectFromClipBoard: () => void;
   rawlines: string[];
+  nodes: any[];
   filename: string;
   uniqueNodeColoringMap: any;
   uniqueTypeColoringMap: any;

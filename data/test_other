@@ -1,0 +1,94 @@
+#243 CALLSTATICJAVA @(tuple:, bci: 9 36, line: 36) -> [ 244 (Proj) ]; # Static uncommon_trap(reason='null_check' action='maybe_recompile' debug_id='0')  void ( int ) C=0.000100 LoopReferencesNotEs
+		L[ 242 (IfFalse) 137 (Phi) 238 (MergeMem) 8 (Parm) 9 (Parm) 165 (ConI) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 50 (ConP) ]
+	#244 PROJ @(control, bci: 9 36, line: 36) -> [ 247 (Halt) ]; #0
+		L[ 243 (CallStaticJava) ]
+	#247 HALT @(bottom, bci: 9 36, line: 36) -> [ 0 (Root) ];
+		L[ 244 (Proj) 1 (Con) 1 (Con) 8 (Parm) 1 (Con) ]
+	#217 CALLSTATICJAVA @(tuple:, bci: 5 36, line: 36) -> [ 218 (Proj) ]; # Static uncommon_trap(reason='null_check' action='maybe_recompile' debug_id='0')  void ( int ) C=0.000100 LoopReferencesNotEs
+		L[ 216 (IfFalse) 137 (Phi) 212 (MergeMem) 8 (Parm) 9 (Parm) 165 (ConI) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 50 (ConP) ]
+	#218 PROJ @(control, bci: 5 36, line: 36) -> [ 221 (Halt) ]; #0
+		L[ 217 (CallStaticJava) ]
+	#221 HALT @(bottom, bci: 5 36, line: 36) -> [ 0 (Root) ];
+		L[ 218 (Proj) 1 (Con) 1 (Con) 8 (Parm) 1 (Con) ]
+	#363 CALLSTATICJAVA @(tuple:, bci: 49, line: 39) -> [ 364 (Proj) ]; # Static uncommon_trap(reason='null_check' action='maybe_recompile' debug_id='0')  void ( int ) C=0.000100 LoopReferencesNotEs
+		L[ 362 (IfFalse) 137 (Phi) 358 (MergeMem) 8 (Parm) 9 (Parm) 165 (ConI) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 1 (Con) 50 (ConP) ]
+	#364 PROJ @(control, bci: 49, line: 39) -> [ 367 (Halt) ]; #0
+		L[ 363 (CallStaticJava) ]
+	#367 HALT @(bottom, bci: 49, line: 39) -> [ 0 (Root) ];
+		L[ 364 (Proj) 1 (Con) 1 (Con) 8 (Parm) 1 (Con) ]
+	#378 RETURN @(bottom, bci: -1, line: -1) -> [ 0 (Root) ];
+		L[ 361 (IfTrue) 137 (Phi) 16 (MergeMem) 8 (Parm) 9 (Parm) 373 (LoadI) ]
+	#145 IF @(tuple:, bci: 27, line: 35) -> [ 147 (IfFalse) 146 (IfTrue) ]; P=0.999003, C=406111.000000
+		L[ 535 (Loop) 144 (Bool) ]
+	#147 IFFALSE @(control, bci: 27, line: 35) -> [ 360 (If) ]; #0
+		L[ 145 (If) ]
+	#360 IF @(tuple:, bci: 49, line: 39) -> [ 361 (IfTrue) 362 (IfFalse) ]; P=0.999999, C=-1.000000
+		L[ 147 (IfFalse) 211 (Bool) ]
+	#361 IFTRUE @(control, bci: 49, line: 39) -> [ 368 (CastPP) 378 (Return) ]; #1
+		L[ 360 (If) ]
+	#368 CASTPP @(inst:, bci: 49, line: 39) -> [ 372 (AddP) ]; Oop:java/lang/Integer:NotNull:exact *
+		L[ 361 (IfTrue) 202 (LoadP) ]
+	#372 ADDP @(inst:, bci: 1 49, line: 39) -> [ 373 (LoadI) ]; Oop:java/lang/Integer:NotNull:exact+16 *
+		L[ _ 368 (CastPP) 368 (CastPP) 30 (ConL) ]
+	#373 LOADI @(int:, bci: 1 49, line: 39) -> [ 378 (Return) ]; @java/lang/Integer:BotPTR:exact+16 *, name=value, idx=6;
+		L[ _ 138 (Phi) 372 (AddP) ]
+	#362 IFFALSE @(control, bci: 49, line: 39) -> [ 363 (CallStaticJava) ]; #0
+		L[ 360 (If) ]
+	#146 IFTRUE @(control, bci: 27, line: 35) -> [ 214 (If) ]; #1
+		L[ 145 (If) ]
+	#214 IF @(tuple:, bci: 5 36, line: 36) -> [ 215 (IfTrue) 216 (IfFalse) ]; P=0.999999, C=-1.000000
+		L[ 146 (IfTrue) 211 (Bool) ]
+	#215 IFTRUE @(control, bci: 5 36, line: 36) -> [ 240 (If) 222 (CastPP) ]; #1
+		L[ 214 (If) ]
+	#240 IF @(tuple:, bci: 9 36, line: 36) -> [ 242 (IfFalse) 241 (IfTrue) ]; P=0.999999, C=-1.000000
+		L[ 215 (IfTrue) 237 (Bool) ]
+	#242 IFFALSE @(control, bci: 9 36, line: 36) -> [ 243 (CallStaticJava) ]; #0
+		L[ 240 (If) ]
+	#241 IFTRUE @(control, bci: 9 36, line: 36) -> [ 248 (CastPP) 404 (If) ]; #1
+		L[ 240 (If) ]
+	#248 CASTPP @(inst:, bci: 9 36, line: 36) -> [ 252 (AddP) ]; Oop:java/lang/Integer:NotNull:exact *
+		L[ 241 (IfTrue) 176 (LoadP) ]
+	#252 ADDP @(inst:, bci: 1 9 36, line: 36) -> [ 253 (LoadI) ]; Oop:java/lang/Integer:NotNull:exact+16 *
+		L[ _ 248 (CastPP) 248 (CastPP) 30 (ConL) ]
+	#253 LOADI @(int:, bci: 1 9 36, line: 36) -> [ 255 (AddI) ]; @java/lang/Integer:BotPTR:exact+16 *, name=value, idx=6;
+		L[ _ 138 (Phi) 252 (AddP) ]
+	#255 ADDI @(int:, bci: 12 36, line: 36) -> [ 645 (CallStaticJava) 580 (ConvI2L) 402 (CmpI) 427 (AddI) 417 (CmpI) 525 (StoreI) 410 (CallStaticJava) ];
+		L[ _ 227 (LoadI) 253 (LoadI) ]
+	#645 CALLSTATICJAVA @(tuple:, bci: 23 13 36, line: 36) -> [ 456 (Proj) 465 (Proj) 647 (Proj) 466 (Proj) ]; # Static _new_instance_Java  rawptr:NotNull ( java/lang/Object:NotNull * ) C=0.000100 java.lang.Integer::valueOf @ bci:23 Loop
+		L[ 650 (IfFalse) 1 (Con) 422 (MergeMem) 8 (Parm) 1 (Con) 453 (ConP) 1 (Con) 1 (Con) 27 (LoadI) 197 (CastPP) 82 (CheckCastPP) 140 (Phi) 1 (Con) 1 (Con) 197 (CastPP) 255 (AddI) ]
+	#456 PROJ @(control, bci: 23 13 36, line: 36) -> [ 459 (Catch) ]; #0
+		L[ 645 (CallStaticJava) ]
+	#459 CATCH @(tuple:, bci: 23 13 36, line: 36) -> [ 646 (CatchProj) 461 (CatchProj) ];
+		L[ 456 (Proj) 466 (Proj) ]
+	#646 CATCHPROJ @(control, bci: 23 13 36, line: 36) -> [ 613 (Region) ]; #0@bci -1
+		L[ 459 (Catch) ]
+	#613 REGION @(control, bci: -1 36, line: 36) -> [ 616 (Phi) 615 (Phi) 614 (Phi) 468 (Initialize) 613 (Region) ];
+		L[ 613 (Region) 646 (CatchProj) 651 (IfTrue) ]
+	#461 CATCHPROJ @(control, bci: 23 13 36, line: 36) -> [ 379 (Rethrow) 464 (CreateEx) ]; #1@bci -1
+		L[ 459 (Catch) ]
+	#379 RETHROW @(bottom, bci: -1, line: -1) -> [ 0 (Root) ];
+		L[ 461 (CatchProj) 466 (Proj) 462 (MergeMem) 8 (Parm) 9 (Parm) 464 (CreateEx) ]
+	#464 CREATEEX @(inst:, bci: 23 13 36, line: 36) -> [ 379 (Rethrow) ]; Oop:java/lang/Throwable:NotNull *
+		L[ 461 (CatchProj) 466 (Proj) ]
+	#465 PROJ @(memory, bci: 23 13 36, line: 36) -> [ 614 (Phi) 462 (MergeMem) ]; #2  Memory: @BotPTR *+bot, idx=Bot;
+		L[ 645 (CallStaticJava) ]
+	#462 MERGEMEM @(memory, bci: 23 13 36, line: 36) -> [ 379 (Rethrow) ]; { N465:rawptr:BotPTR }  Memory: @BotPTR *+bot, idx=Bot;
+		L[ _ 1 (Con) 138 (Phi) 465 (Proj) ]
+	#647 PROJ @(rawptr:, bci: 23 13 36, line: 36) -> [ 616 (Phi) ]; #5
+		L[ 645 (CallStaticJava) ]
+	#466 PROJ @(abIO, bci: 23 13 36, line: 36) -> [ 379 (Rethrow) 464 (CreateEx) 459 (Catch) ]; #1
+		L[ 645 (CallStaticJava) ]
+	#580 CONVI2L @(long:, bci: -1 36, line: 36) -> [ 585 (LShiftL) ];
+		L[ _ 255 (AddI) ]
+	#585 LSHIFTL @(long:, bci: -1 36, line: 36) -> [ 588 (AddP) ];
+		L[ _ 580 (ConvI2L) 447 (ConI) ]
+	#588 ADDP @(ary:, bci: -1 36, line: 36) -> [ 449 (AddP) ];
+		L[ _ 425 (ConP) 425 (ConP) 585 (LShiftL) ]
+	#449 ADDP @(ary:, bci: 21 13 36, line: 36) -> [ 451 (LoadP) ];
+		L[ _ 425 (ConP) 588 (AddP) 589 (ConL) ]
+	#451 LOADP @(inst:, bci: 21 13 36, line: 36) -> [ 397 (Phi) ]; @java/lang/Object:BotPTR *[int:>=0]:BotPTR+any *, idx=7;  Oop:java/lang/Integer:NotNull:exact *
+		L[ 434 (IfTrue) 138 (Phi) 449 (AddP) ]
+	#402 CMPI @(int:, bci: 3 13 36, line: 36) -> [ 403 (Bool) ];
+		L[ _ 255 (AddI) 401 (ConI) ]
+	#403 BOOL @(int:, bci: 3 13 36, line: 36) -> [ 404 (If) ]; [lt]
+		L[ _ 402 (CmpI) ]
